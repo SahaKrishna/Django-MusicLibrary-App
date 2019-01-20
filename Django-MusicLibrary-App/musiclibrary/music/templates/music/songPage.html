@@ -1,0 +1,44 @@
+{%extends 'music/Navigation.html' %}
+{% block title%}Song Title{% endblock%}
+{%block body%}
+</h1>Here are the Song Details: </h1></br>
+<h4>Album:{{album.title}}</h4>
+<h4>Atrist:{{album.artist}}</h4>
+<form action="{% url 'music:song-favourite' album.id %}" method="POST">
+    {% csrf_token%}
+    {% for song in all_songs_in_album %}
+    <input type="radio" name="song" value="{{song.id}}">
+    {{song.title}}
+    {% if song.favourite == True %}
+    <img src="https://www.freeiconspng.com/uploads/favourite-icon-27.png" height="10" width="10">
+    {% endif %}
+    </br>
+    {% endfor%}
+    {% if all_songs_in_album %}
+    <input type="submit" value="Favourite"/>
+    {% endif%}
+</form>
+<table>
+    <tr>
+        <td>
+            <form action="{% url 'music:add-song' album.id%}">
+                <br>
+                <input type="submit" , name="addsong" value="Add Song">
+            </form>
+        </td>
+        <td>
+            <form action="{% url 'music:edit-album' album.id %}">
+                <br>
+                <input type="submit" , name="editalbum" value="Edit Album">
+            </form>
+        </td>
+        <td>
+            <form action="{% url 'music:delete-album' album.id %}">
+                <br>
+                <input type="submit" , name="deletealbum" value="Delete Album">
+            </form>
+        </td>
+    </tr>
+</table>
+{%endblock%}
+

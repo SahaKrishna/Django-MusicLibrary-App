@@ -1,0 +1,17 @@
+{% include 'music/Navigation.html' %}
+{% block body %}
+<form action="" method="post">
+    {% csrf_token%}
+    <table align="center">
+        <col width="130">
+        {%for field in form%}
+        <tr>
+            <td>{{field.label}}</td>
+            <td>{{field}}</td>
+        </tr>
+        <tr><br></tr>
+        {%endfor %}
+        <td><input type="submit" name="add_album" value="Save"></td>
+    </table>
+</form>
+{% endblock %}
